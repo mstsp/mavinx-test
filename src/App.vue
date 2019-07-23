@@ -34,7 +34,6 @@ export default {
   padding: 0;
 }
 html {
-  background-color: blue;
   height: 100%;
   width: 100%;
 }
