@@ -1,11 +1,13 @@
 <template>
   <div id="app">
     <registration></registration>
+<!-- <authorization></authorization> -->
   </div>
 </template>
 
 <script>
 import registration from './components/registrationForm.vue';
+import authorization from './components/authorization.vue'
 export default {
   data() {
     return {
@@ -13,7 +15,8 @@ export default {
     }
   },
   components: {
-    registration
+    registration,
+    authorization
   }
 
 }
