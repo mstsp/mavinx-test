@@ -6,8 +6,7 @@
 </template>
 
 <script>
-import profileSupplier from "./profileSupplier.vue";
-import profileCustomer from "./profileCustomer.vue";
+import profile from "./profile.vue";
 
 export default {
   data() {
@@ -16,8 +15,7 @@ export default {
     };
   },
   components: {
-    profileSupplier,
-    profileCustomer
+    profile
   },
   methods: {
     getUserRole() {
@@ -25,7 +23,7 @@ export default {
         JSON.stringify(localStorage.getItem("userRole"))
       );
 
-        this.$router.push(`/profile-${this.userRole}`);
+        this.$router.push('/profile');
     }
   }
 };

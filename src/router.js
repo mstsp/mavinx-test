@@ -3,8 +3,7 @@ import Router from "vue-router";
 import registration from "./components/registrationForm.vue";
 import authorization from "./components/authorization.vue";
 import mainPage from "./components/mainPage.vue";
-import profileSupplier from './components/profileSupplier.vue';
-import profileCustomer from './components/profileCustomer.vue'
+import profile from './components/profile.vue'
 
 
 Vue.use(Router);
@@ -31,15 +30,9 @@ export default new Router({
       meta: { requiresAuth: true },
     },
     {
-      path: '/profile-supplier',
-      name: 'profileSupplier',
-      component: profileSupplier,
-      meta: { requiresAuth: true },
-    },
-    {
-      path: '/profile-customer',
-      name: 'profileCustomer',
-      component: profileCustomer,
+      path: '/profile',
+      name: 'profile',
+      component: profile,
       meta: { requiresAuth: true },
     }
   ]
