@@ -10,7 +10,6 @@
 import profile from "./profile.vue";
 import axios from "axios";
 
-
 export default {
   data() {
     return {
@@ -39,20 +38,16 @@ export default {
       console.log(config);
 
       axios
-        .post(url, config)
+        .post(url, {}, config)
         .then(response => {
-          console.log(response);
+          console.log("OK");
+          localStorage.removeItem("token");
+          localStorage.removeItem("userRole");
+          this.$router.push("/authorization");
         })
         .catch(error => {});
-
-
-      localStorage.removeItem('token');
-      localStorage.removeItem('userRole');  
-      this.$router.push("/authorization");
-
     }
   }
-
 };
 </script>
 
