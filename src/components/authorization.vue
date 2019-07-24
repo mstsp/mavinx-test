@@ -60,7 +60,6 @@ import { required, email, minLength } from "vuelidate/lib/validators";
 import axios from "axios";
 //import { mapMutations } from "vuex";
 
-
 export default {
   data() {
     return {
@@ -95,11 +94,11 @@ export default {
         .post(url, userData)
         .then(response => {
           console.log(response);
-          if(response.data.status == true) {
+          if (response.data.status == true) {
+            console.log('token get')
             localStorage.setItem("token", response.data.token);
             localStorage.setItem("userRole", response.data.user.role);
-            this.$router.push('/main');
-          } else { 
+          } else {
             if (
               response.data.message.email
                 .toString()
@@ -108,7 +107,7 @@ export default {
             ) {
               this.emailError = "Поле Email обязательно";
             }
-          
+
             if (
               response.data.message.password
                 .toString()
@@ -117,6 +116,11 @@ export default {
             ) {
               this.passwordError = "Введите пароль";
             }
+          }
+
+          if (localStorage.getItem("token")) {
+            console.log('token true & redirect => ', localStorage.getItem('token')); 
+            this.$router.push("/main");
           } 
         })
         .catch(error => {
