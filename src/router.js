@@ -6,6 +6,7 @@ import mainPage from "./components/mainPage.vue";
 
 Vue.use(Router);
 
+
 export default new Router({
   routes: [
     

@@ -9,6 +9,14 @@ Vue.use(Vuelidate);
 Vue.config.productionTip = false;
 Vue.use(BootstrapVue);
 
+router.beforeEach((to, from, next) => {
+  if(to.meta.requiresAuth) {
+    
+  }
+  console.log(to);
+  next();
+});
+
 new Vue({
   router,
   store,
