@@ -98,9 +98,7 @@ export default {
           if(response.data.status == true) {
             localStorage.setItem("token", response.data.token);
             localStorage.setItem("userRole", response.data.user.role);
-
-            console.log(response.data.token);
-            console.log(response.data.user.role);
+            this.$router.push('/main');
           } else { 
             if (
               response.data.message.email
