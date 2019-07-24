@@ -55,6 +55,8 @@
 <script>
 import { required, email, minLength } from "vuelidate/lib/validators";
 import axios from "axios";
+//import { mapMutations } from "vuex";
+
 
 export default {
   data() {
@@ -79,6 +81,8 @@ export default {
     }
   },
   methods: {
+    //...mapMutations(["saveTokenMutation", "saveUserRoleMutation"]),
+
     onSubmit() {
       let url = "http://68.183.119.148/api/login";
       let userData = {
