@@ -2,11 +2,14 @@
   <div class="container">
     main-page
     <button v-on:click="getUserRole()">Click</button>
+    <button v-on:click="logOut()">LogOut</button>
   </div>
 </template>
 
 <script>
 import profile from "./profile.vue";
+import axios from "axios";
+
 
 export default {
   data() {
@@ -23,9 +26,33 @@ export default {
         JSON.stringify(localStorage.getItem("userRole"))
       );
 
-        this.$router.push('/profile');
+      this.$router.push("/profile");
+    },
+    logOut() {
+      let url = "http://68.183.119.148/api/logout";
+
+      let config = {
+        headers: {
+          Authorization: localStorage.getItem("token")
+        }
+      };
+      console.log(config);
+
+      axios
+        .post(url, config)
+        .then(response => {
+          console.log(response);
+        })
+        .catch(error => {});
+
+
+      localStorage.removeItem('token');
+      localStorage.removeItem('userRole');  
+      this.$router.push("/authorization");
+
     }
   }
+
 };
 </script>
 
