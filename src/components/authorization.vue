@@ -96,6 +96,11 @@ export default {
         .then(response => {
           console.log(response);
           if(response.data.status == true) {
+            localStorage.setItem("token", response.data.token);
+            localStorage.setItem("userRole", response.data.user.role);
+
+            console.log(response.data.token);
+            console.log(response.data.user.role);
           } else { 
             if (
               response.data.message.email
