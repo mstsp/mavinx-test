@@ -1,8 +1,9 @@
 <template>
   <div id="app">
-    <registration></registration>
+    <!-- <registration></registration> -->
     <!-- <authorization></authorization> -->
     <!-- <mainPage></mainPage> -->
+    <router-view/>
   </div>
 </template>
 
