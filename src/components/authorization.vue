@@ -1,7 +1,6 @@
 <template>
   <div class="container">
     <form class="form" @submit.prevent="onSubmit">
-
       <p class="form__title">Авторизация</p>
 
       <div class="form__field">
@@ -17,7 +16,10 @@
       </div>
 
       <div class="invalidFeedback">
-        <div class="invalidFeedback__info" v-if="!$v.email.email">Введена неверная электронная почта.</div>
+        <div
+          class="invalidFeedback__info"
+          v-if="!$v.email.email"
+        >Введена неверная электронная почта.</div>
         <div class="invalidFeedback__info" v-if="!$v.email.emailError">{{emailError}}</div>
       </div>
 
@@ -39,13 +41,14 @@
           v-if="!$v.password.minLength"
         >Минимальная длина пароля {{ 6 }} символов. Введено {{ password.length }}</div>
         <div class="invalidFeedback__info" v-if="!$v.password.passwordError">{{passwordError}}</div>
-
       </div>
 
       <div class="invalidFeedback invalidFeedback--center">
-        <div class="invalidFeedback__info invalidFeedback__info--center" v-if="error != ''">{{error}}</div>
+        <div
+          class="invalidFeedback__info invalidFeedback__info--center"
+          v-if="error != ''"
+        >{{error}}</div>
       </div>
-
 
       <button class="form__button">Войти</button>
     </form>
@@ -63,10 +66,9 @@ export default {
     return {
       email: "",
       password: "",
-      emailError: '',
-      passwordError: '',
-      error: ''
-
+      emailError: "",
+      passwordError: "",
+      error: ""
     };
   },
   validations: {
@@ -77,7 +79,6 @@ export default {
     password: {
       required,
       minLength: minLength(6)
-      
     }
   },
   methods: {
@@ -87,14 +88,15 @@ export default {
       let url = "http://68.183.119.148/api/login";
       let userData = {
         email: this.email,
-        password: this.password,
+        password: this.password
       };
       console.log(userData);
       axios
         .post(url, userData)
         .then(response => {
           console.log(response);
-          if (response.data.message.email) {
+          if(response.data.status == true) {
+          } else { 
             if (
               response.data.message.email
                 .toString()
@@ -103,8 +105,7 @@ export default {
             ) {
               this.emailError = "Поле Email обязательно";
             }
-          }
-
+          
             if (
               response.data.message.password
                 .toString()
@@ -112,15 +113,12 @@ export default {
                 .includes("required")
             ) {
               this.passwordError = "Введите пароль";
-            }        
-
-            })
+            }
+          } 
+        })
         .catch(error => {
-
-          this.error = "Введен неверный логин или пароль"
-          console.log(error.response);
-
-          console.log("NOT OK");
+          this.error = "Введен неверный логин или пароль";
+          console.log(error);
         });
     }
   }
@@ -133,7 +131,7 @@ export default {
 }
 
 .container {
-    width: 100%;
+  width: 100%;
   height: 100%;
   display: flex;
   align-items: center;
@@ -141,7 +139,6 @@ export default {
 }
 
 .form {
-
   min-width: 25%;
   min-height: 30%;
   border: 2px solid lightblue;
@@ -155,7 +152,6 @@ export default {
     font-size: 28px;
     margin: 0;
     margin-bottom: 20px;
-
   }
 
   &__field {
@@ -222,7 +218,6 @@ export default {
   &--center {
     font-size: 14px;
   }
-
 
   &__info {
     text-align: left;
