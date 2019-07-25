@@ -9,10 +9,12 @@
           v-model.trim="name"
           :class="{'isInvalid': $v.name.$error}"
           @blur="$v.name.$touch()"
+          v-on:focus="nameError = ''"
         />
       </div>
 
       <div class="invalidFeedback">
+        <div class="invalidFeedback__info" v-if="!$v.name.required">Поле обязательно</div>
         <div class="invalidFeedback__info" v-if="!$v.name.naneError">{{nameError}}</div>
       </div>
 
@@ -24,10 +26,12 @@
           v-model.trim="surname"
           :class="{'isInvalid': $v.surname.$error}"
           @blur="$v.surname.$touch()"
+          v-on:focus="surnameError = ''"
         />
       </div>
 
       <div class="invalidFeedback">
+        <div class="invalidFeedback__info" v-if="!$v.surname.required">Поле обязательно</div>
         <div class="invalidFeedback__info" v-if="!$v.surname.surnameError">{{surnameError}}</div>
       </div>
 
@@ -50,11 +54,12 @@
           v-model.trim="role"
           :class="{'isInvalid': $v.role.$error}"
           @blur="$v.role.$touch()"
+          v-on:focus="roleError = ''"
         />
       </div>
 
       <div class="invalidFeedback">
-        <div class="invalidFeedback__info" v-if="!$v.role.role">Введена неверная роль.</div>
+        <!-- <div class="invalidFeedback__info" v-if="!$v.role.checkRole">Введена неверная роль.</div> -->
         <div class="invalidFeedback__info" v-if="!$v.role.roleError">{{roleError}}</div>
       </div>
 
@@ -91,7 +96,13 @@ export default {
       required
     },
     role: {
-      required
+      required,
+      checkRole: function() {
+        if (this.role != 1 || this.role != 2) {
+          return (this.roleError =
+            "Роль пользователя (1- поставщик, 2-заказчик)");
+        }
+      }
     }
   },
   methods: {
@@ -133,11 +144,14 @@ export default {
       .get(url, config)
       .then(response => {
         console.log(response);
-      this.name = response.data.user.name; 
-      this.surname = response.data.user.surname;
-      this.name_customer = response.data.user.name_customer;
-      this.role = response.data.user.role;
-
+        this.name = response.data.user.name;
+        this.surname = response.data.user.surname;
+        this.name_customer = response.data.user.name_customer;
+        if (response.data.user.role == "customer") {
+          this.role = "2";
+        } else {
+          this.role = "1";
+        }
       })
       .catch(error => {});
   }
@@ -156,6 +170,11 @@ export default {
 }
 
 .form {
+  border: 2px solid lightblue;
+  box-shadow: 3px 4px 4px rgba(0, 102, 255, 0.25);
+  padding: 20px;
+  border-radius: 15px;
+
   &__field {
     margin-bottom: 24px;
   }
