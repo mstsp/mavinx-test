@@ -59,7 +59,7 @@
       </div>
 
       <div class="invalidFeedback">
-        <!-- <div class="invalidFeedback__info" v-if="!$v.role.checkRole">Введена неверная роль.</div> -->
+        <div class="invalidFeedback__info" v-if="!$v.role.required">Поле обязательно</div>
         <div class="invalidFeedback__info" v-if="!$v.role.roleError">{{roleError}}</div>
       </div>
 
@@ -96,17 +96,15 @@ export default {
       required
     },
     role: {
-      required,
-      checkRole: function() {
-        if (this.role != 1 || this.role != 2) {
-          return (this.roleError =
-            "Роль пользователя (1- поставщик, 2-заказчик)");
-        }
-      }
+      required
     }
   },
   methods: {
     updateUserData() {
+      if (this.role != 1 && this.role != 2) {
+        this.roleError = "Роль пользователя (1- поставщик, 2-заказчик)";
+      }
+
       let url = "http://68.183.119.148/api/edit-user";
 
       let config = {
