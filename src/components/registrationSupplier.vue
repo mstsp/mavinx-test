@@ -54,10 +54,11 @@
       </div>
 
       <div class="form__field">
-        <input
+        <masked-input
           class="form__input"
           type="text"
           placeholder="Телефон"
+          mask="\38 (111) 111-11-11"
           v-model.trim="phone"
           :class="{'isInvalid': $v.phone.$error}"
           @blur="$v.phone.$touch()"
@@ -119,6 +120,7 @@
 import { required, email, minLength, sameAs } from "vuelidate/lib/validators";
 import axios from "axios";
 import modalForm from "./modalForm.vue";
+import MaskedInput from "vue-masked-input";
 
 export default {
   data() {
@@ -139,7 +141,8 @@ export default {
     };
   },
   components: {
-    modalForm
+    modalForm,
+    MaskedInput
   },
   validations: {
     name: {
