@@ -16,7 +16,6 @@
         <div class="invalidFeedback__info" v-if="!$v.name.naneError">{{nameError}}</div>
       </div>
 
-
       <div class="form__field">
         <input
           class="form__input"
@@ -55,7 +54,10 @@
       </div>
 
       <div class="invalidFeedback">
-        <div class="invalidFeedback__info" v-if="!$v.email.email">Введена неверная электронная почта.</div>
+        <div
+          class="invalidFeedback__info"
+          v-if="!$v.email.email"
+        >Введена неверная электронная почта.</div>
         <div class="invalidFeedback__info" v-if="!$v.email.emailError">{{emailError}}</div>
       </div>
 
@@ -91,7 +93,6 @@
           v-if="!$v.password.minLength"
         >Минимальная длина пароля {{ 6 }} символов. Введено {{ password.length }}</div>
         <div class="invalidFeedback__info" v-if="!$v.password.passwordError">{{passwordError}}</div>
-
       </div>
 
       <div class="form__field">
@@ -106,17 +107,24 @@
       </div>
 
       <div class="invalidFeedback">
-        <div class="invalidFeedback__info" v-if="!$v.password_confirmation.sameAs">Пароли должны совпадать</div>
+        <div
+          class="invalidFeedback__info"
+          v-if="!$v.password_confirmation.sameAs"
+        >Пароли должны совпадать</div>
       </div>
 
       <button class="form__button">Регистрация</button>
     </form>
+    <div v-if="modalMessage">
+      <modalForm></modalForm>
+    </div>
   </div>
 </template>
 
 <script>
 import { required, email, minLength, sameAs } from "vuelidate/lib/validators";
 import axios from "axios";
+import modalForm from "./modalForm.vue";
 
 export default {
   data() {
@@ -130,12 +138,15 @@ export default {
       password_confirmation: "",
       emailError: "",
       phoneError: "",
-      emailError: '',
-      nameError: '',
-      surnameError: '',
-      passwordError: '',
-
+      emailError: "",
+      nameError: "",
+      surnameError: "",
+      passwordError: "",
+      modalMessage: ""
     };
+  },
+  components: {
+    modalForm
   },
   validations: {
     name: {
@@ -179,7 +190,9 @@ export default {
       axios
         .post(url, newCustomer)
         .then(response => {
-          console.log(response.data.message);
+          if (response.data.status == true) {
+            this.modalMessage = true;
+          }
           if (response.data.message.email) {
             if (
               response.data.message.email
@@ -216,34 +229,33 @@ export default {
             }
           }
 
-            if (
-              response.data.message.name
-                .toString()
-                .toLowerCase()
-                .includes("required")
-            ) {
-              this.nameError = "Поле имя обязательно";
-            }
+          if (
+            response.data.message.name
+              .toString()
+              .toLowerCase()
+              .includes("required")
+          ) {
+            this.nameError = "Поле имя обязательно";
+          }
 
-            if (
-              response.data.message.surname
-                .toString()
-                .toLowerCase()
-                .includes("required")
-            ) {
-              this.surnameError = "Поле фамилия обязательно";
-            }        
-        
-            if (
-              response.data.message.password
-                .toString()
-                .toLowerCase()
-                .includes("characters")
-            ) {
-              this.passwordError = "Введите пароль";
-            }        
+          if (
+            response.data.message.surname
+              .toString()
+              .toLowerCase()
+              .includes("required")
+          ) {
+            this.surnameError = "Поле фамилия обязательно";
+          }
 
-            })
+          if (
+            response.data.message.password
+              .toString()
+              .toLowerCase()
+              .includes("characters")
+          ) {
+            this.passwordError = "Введите пароль";
+          }
+        })
         .catch(error => {
           console.log(error.response);
 
@@ -326,7 +338,6 @@ export default {
   color: #d24a43;
   margin-top: -20px;
   height: 24px;
-
 
   &__info {
     text-align: left;
