@@ -9,11 +9,12 @@
           v-model.trim="name"
           :class="{'isInvalid': $v.name.$error}"
           @blur="$v.name.$touch()"
+          v-on:focus="nameError = ''"
         />
       </div>
 
       <div class="invalidFeedback">
-        <div class="invalidFeedback__info" v-if="!$v.name.naneError">{{nameError}}</div>
+        <div class="invalidFeedback__info" v-if="!$v.name.nameError">{{nameError}}</div>
       </div>
 
       <div class="form__field">
@@ -24,6 +25,7 @@
           v-model.trim="surname"
           :class="{'isInvalid': $v.surname.$error}"
           @blur="$v.surname.$touch()"
+          v-on:focus="surnameError = ''"
         />
       </div>
 
@@ -39,6 +41,7 @@
           v-model.trim="email"
           :class="{'isInvalid': $v.email.$error}"
           @blur="$v.email.$touch()"
+          v-on:focus="emailError = ''"
         />
       </div>
 
@@ -58,6 +61,7 @@
           v-model.trim="phone"
           :class="{'isInvalid': $v.phone.$error}"
           @blur="$v.phone.$touch()"
+          v-on:focus="phoneError = ''"
         />
       </div>
 
@@ -73,6 +77,7 @@
           v-model.trim="password"
           :class="{'isInvalid': $v.password.$error}"
           @blur="$v.password.$touch()"
+          v-on:focus="passwordError = ''"
         />
       </div>
 
