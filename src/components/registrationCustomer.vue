@@ -191,7 +191,6 @@ export default {
         password: this.password,
         password_confirmation: this.password_confirmation
       };
-      console.log(newCustomer);
       axios
         .post(url, newCustomer)
         .then(response => {
@@ -261,11 +260,7 @@ export default {
             this.passwordError = "Введите пароль";
           }
         })
-        .catch(error => {
-          console.log(error.response);
-
-          console.log("NOT OK");
-        });
+        .catch(error => {});
     }
   }
 };

@@ -2,12 +2,29 @@
   <div class="container">
     <div class="registration">
       <p class="registration__title">Регистрация</p>
+      <input
+        class="registration__input"
+        type="radio"
+        id="pickCustomer"
+        name="typeRegistration"
+        checked
+        hidden
+      />
       <label
         class="registration__label registration__label--right"
+        for="pickCustomer"
         @click="component='registrationCustomer'"
       >Заказчик</label>
+      <input
+        class="registration__input"
+        type="radio"
+        id="pickSupplier"
+        name="typeRegistration"
+        hidden
+      />
       <label
         class="registration__label registration__label--left"
+        for="pickSupplier"
         @click="component='registrationSupplier'"
       >Поставщик</label>
 
@@ -38,6 +55,10 @@ export default {
 </script>
 
 <style scoped lang="scss">
+input[type="radio"]:checked + label {
+  border-bottom: solid 2px #809fff;
+}
+
 .container {
   width: 100%;
   height: 100%;

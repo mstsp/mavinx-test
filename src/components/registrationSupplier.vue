@@ -110,7 +110,7 @@
       <button class="form__button">Регистрация</button>
     </form>
     <div v-if="modalMessage">
-    <modalForm></modalForm>
+      <modalForm></modalForm>
     </div>
   </div>
 </template>
@@ -175,13 +175,11 @@ export default {
         password: this.password,
         password_confirmation: this.password_confirmation
       };
-      console.log(newCustomer);
       axios
         .post(url, newCustomer)
         .then(response => {
-          console.log(response.data.message);
-          if(response.data.status == true) {
-          this.modalMessage = true;
+          if (response.data.status == true) {
+            this.modalMessage = true;
           }
           if (response.data.message.email) {
             if (
@@ -245,13 +243,8 @@ export default {
           ) {
             this.passwordError = "Введите пароль";
           }
-
         })
-        .catch(error => {
-          console.log(error);
-
-          console.log("NOT OK");
-        });
+        .catch(error => {});
     }
   }
 };
